@@ -3,7 +3,7 @@
 ### What is it / What does it do?
 It's a simple one class `TouchListener` that can be attached to any RecyclerView and handles multi selection in google photos style via long pressing on an item and moving the finger up/down to select more items (it even scrolls if you reach the edges of the `RecyclerView`)
 
-![Demo](https://raw.githubusercontent.com/MFlisar/DragSelectRecyclerView/tree/master/files/demo.gif)
+![Demo](https://github.com/MFlisar/DragSelectRecyclerView/blob/master/files/demo.gif?raw=true)
  
 ### Gradle (via [JitPack.io](https://jitpack.io/))
 
