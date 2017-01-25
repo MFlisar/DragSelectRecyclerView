@@ -3,7 +3,7 @@
 ### What is it / What does it do?
 It's a simple one class `TouchListener` that can be attached to any RecyclerView and handles multi selection in google photos style via long pressing on an item and moving the finger up/down to select more items (it even scrolls if you reach the edges of the `RecyclerView`)
 
-TODO: Gif Demo
+![Demo](https://raw.githubusercontent.com/MFlisar/DragSelectRecyclerView/tree/master/files/demo.gif)
  
 ### Gradle (via [JitPack.io](https://jitpack.io/))
 
@@ -18,9 +18,7 @@ TODO: Gif Demo
 
 	```groovy
 	dependencies {
-	    // currently this works only, I'm cleaning the code a little bit before making the first release
-	    compile 'com.github.MFlisar:DragSelectRecyclerView:-SNAPSHOT'
-	    // compile 'com.github.MFlisar:DragSelectRecyclerView:1.0'
+	    compile 'com.github.MFlisar:DragSelectRecyclerView:0.1'
 	}
 	```
 
