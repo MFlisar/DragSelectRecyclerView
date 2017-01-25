@@ -283,7 +283,7 @@ public class DragSelectTouchListener implements RecyclerView.OnItemTouchListener
         int y = (int) event.getY();
 
         if (mDebug)
-            Log.d("DSTL", "y = " + y +
+            Log.d(TAG, "y = " + y +
                     " | rv.height = " + mRecyclerView.getHeight() +
                     " | mTopBoundFrom => mTopBoundTo = " + mTopBoundFrom + " => " + mTopBoundTo +
                     " | mBottomBoundFrom => mBottomBoundTo = " + mBottomBoundFrom + " => " + mBottomBoundTo +
@@ -297,7 +297,7 @@ public class DragSelectTouchListener implements RecyclerView.OnItemTouchListener
             mScrollSpeedFactor = (((float) mTopBoundTo - (float) mTopBoundFrom) - ((float) y - (float) mTopBoundFrom)) / ((float) mTopBoundTo - (float) mTopBoundFrom);
             mScrollDistance = (int) ((float) mMaxScrollDistance * mScrollSpeedFactor * -1f);
             if (mDebug)
-                Log.d("DSTL - SCROLL", "mScrollSpeedFactor=" + mScrollSpeedFactor + " | mScrollDistance=" + mScrollDistance);
+                Log.d(TAG, "SCROLL - mScrollSpeedFactor=" + mScrollSpeedFactor + " | mScrollDistance=" + mScrollDistance);
             if (!mInTopSpot)
             {
                 mInTopSpot = true;
@@ -322,7 +322,7 @@ public class DragSelectTouchListener implements RecyclerView.OnItemTouchListener
             mScrollSpeedFactor = (((float) y - (float) mBottomBoundFrom)) / ((float) mBottomBoundTo - (float) mBottomBoundFrom);
             mScrollDistance = (int) ((float) mMaxScrollDistance * mScrollSpeedFactor);
             if (mDebug)
-                Log.d("DSTL - SCROLL", "mScrollSpeedFactor=" + mScrollSpeedFactor + " | mScrollDistance=" + mScrollDistance);
+                Log.d(TAG, "SCROLL - mScrollSpeedFactor=" + mScrollSpeedFactor + " | mScrollDistance=" + mScrollDistance);
             if (!mInBottomSpot)
             {
                 mInBottomSpot = true;
