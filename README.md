@@ -47,7 +47,7 @@ It's a simple one class `TouchListener` that can be attached to any RecyclerView
 2. attach it to the `RecyclerView`
 
 	```
-	recyclerView.startDragSelection(mDragSelectTouchListener);
+	recyclerView.addOnItemTouchListener(mDragSelectTouchListener);
 	```
 
 3. on item long press, inform the listener so that it can start doing it's magic
@@ -55,7 +55,7 @@ It's a simple one class `TouchListener` that can be attached to any RecyclerView
 	```
 	// if one item is long pressed, we start the drag selection like following:
 	// we just call this function and pass in the position of the first selected item
-	mDragSelectTouchListener.setStartSelectPosition(position);
+	mDragSelectTouchListener.startDragSelection(position);
 	```
 	
 ###TODO
