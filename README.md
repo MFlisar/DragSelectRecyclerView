@@ -59,6 +59,7 @@ TODO: Gif Demo
 	// we pass in the position of the first selected item
 	mDragSelectTouchListener.setStartSelectPosition(position);
 	```
+	
 ###Credits
 
 This library is heavily inspired and based on https://github.com/weidongjian/AndroidDragSelect-SimulateGooglePhoto
