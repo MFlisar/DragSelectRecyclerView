@@ -156,6 +156,24 @@ public class DragSelectTouchListener implements RecyclerView.OnItemTouchListener
     }
 
     // -----------------------
+    // Main functions
+    // -----------------------
+
+    /**
+     * start the drag selection
+     * <p>
+     * @param  position  the index of the first selected item
+     */
+    public void setStartSelectPosition(int position)
+    {
+        setIsActive(true);
+        mStart = position;
+        mEnd = position;
+        mLastStart = position;
+        mLastEnd = position;
+    }
+
+    // -----------------------
     // Functions
     // -----------------------
 
@@ -398,15 +416,6 @@ public class DragSelectTouchListener implements RecyclerView.OnItemTouchListener
     public void setIsActive(boolean isActive)
     {
         this.mIsActive = isActive;
-    }
-
-    public void setStartSelectPosition(int position)
-    {
-        setIsActive(true);
-        mStart = position;
-        mEnd = position;
-        mLastStart = position;
-        mLastEnd = position;
     }
 
     // -----------------------
