@@ -1,0 +1,43 @@
+apply plugin: 'com.android.library'
+
+group = 'com.github.MFlisar'
+
+android {
+
+    if (project.hasProperty('setup.compileSdk'))
+    {
+        compileSdkVersion setup.compileSdk
+        buildToolsVersion setup.buildTools
+        defaultConfig {
+            minSdkVersion setup.minSdk
+            targetSdkVersion setup.targetSdk
+        }
+    }
+    else
+    {
+        compileSdkVersion 24
+        buildToolsVersion "24.0.2"
+        defaultConfig {
+            minSdkVersion 16
+            targetSdkVersion 24
+        }
+    }
+
+    if (!project.hasProperty('versions.supportLib'))
+    {
+        project.ext.set("versions", ["supportLib" : "24.2.1"]);
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile "com.android.support:support-core-ui:${versions.supportLib}"
+//    compile "com.android.support:appcompat-v7:${versions.supportLib}"
+    compile "com.android.support:recyclerview-v7:${versions.supportLib}"
+}
