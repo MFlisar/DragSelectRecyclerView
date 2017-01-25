@@ -31,16 +31,16 @@ It's a simple one class `TouchListener` that can be attached to any RecyclerView
 		.withSelectListener(new DragSelectTouchListener.OnDragSelectListener() {
 			@Override
 			public void onSelectChange(int start, int end, boolean isSelected) {
-				 // update your selection
-	       // range is inclusive start/end positions
+				// update your selection
+				// range is inclusive start/end positions
 			}
 		})
-	  // following is all optional
-		.withMaxScrollDistance(distance)    // default: 16; defines the speed of the auto scrolling
-		.withTopOffset(toolbarHeight)       // default: 0; set an offset for the touch region on top of the RecyclerView
-		.withBottomOffset(toolbarHeight)    // default: 0; set an offset for the touch region on bottom of the RecyclerView
-		.withScrollAboveTopRegion(enabled)  // default: true; enable auto scrolling, even if the finger is moved above the top region
-		.withScrollBelowTopRegion(enabled)  // default: true; enable auto scrolling, even if the finger is moved below the top region
+		// following is all optional
+		.withMaxScrollDistance(distance)    // default: 16; 	defines the speed of the auto scrolling
+		.withTopOffset(toolbarHeight)       // default: 0; 		set an offset for the touch region on top of the RecyclerView
+		.withBottomOffset(toolbarHeight)    // default: 0; 		set an offset for the touch region on bottom of the RecyclerView
+		.withScrollAboveTopRegion(enabled)  // default: true; 	enable auto scrolling, even if the finger is moved above the top region
+		.withScrollBelowTopRegion(enabled)  // default: true; 	enable auto scrolling, even if the finger is moved below the top region
 		.withDebug(enabled);                // default: false;
 	```
 
@@ -54,7 +54,7 @@ It's a simple one class `TouchListener` that can be attached to any RecyclerView
 
 	```
 	// if one item is long pressed, we start the drag selection like following:
-	// we pass in the position of the first selected item
+	// we just call this function and pass in the position of the first selected item
 	mDragSelectTouchListener.setStartSelectPosition(position);
 	```
 	
