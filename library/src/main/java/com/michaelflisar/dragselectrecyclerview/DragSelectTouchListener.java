@@ -36,8 +36,6 @@ public class DragSelectTouchListener implements RecyclerView.OnItemTouchListener
         {
             if (mScroller != null && mScroller.computeScrollOffset())
             {
-                if (mDebug)
-                    Log.d(TAG, "mScrollRunnable executed...");
                 scrollBy(mScrollDistance);
                 ViewCompat.postOnAnimation(mRecyclerView, mScrollRunnable);
             }
@@ -68,7 +66,8 @@ public class DragSelectTouchListener implements RecyclerView.OnItemTouchListener
     /**
      * sets the listener
      * <p>
-     * @param  selectListener  the listener that will be notified when items are (un)selected
+     *
+     * @param selectListener the listener that will be notified when items are (un)selected
      */
     public DragSelectTouchListener withSelectListener(OnDragSelectListener selectListener)
     {
@@ -80,7 +79,8 @@ public class DragSelectTouchListener implements RecyclerView.OnItemTouchListener
      * sets the distance that the RecyclerView is maximally scrolled (per scroll event)
      * higher values result in higher scrolling speed
      * <p>
-     * @param  distance  the distance in pixels
+     *
+     * @param distance the distance in pixels
      */
     public DragSelectTouchListener withMaxScrollDistance(int distance)
     {
@@ -92,7 +92,8 @@ public class DragSelectTouchListener implements RecyclerView.OnItemTouchListener
      * defines the height of the region at the top/bottom of the RecyclerView
      * which will make the RecyclerView scroll
      * <p>
-     * @param  size  height of region
+     *
+     * @param size height of region
      */
     public DragSelectTouchListener withTouchRegion(int size)
     {
@@ -102,9 +103,10 @@ public class DragSelectTouchListener implements RecyclerView.OnItemTouchListener
 
     /**
      * defines an offset for the TouchRegion from the top
-     * useful, if RecyclerView is displayed underneath a semi transparent Toolbar or similar
+     * useful, if RecyclerView is displayed underneath a semi transparent Toolbar at top or similar
      * <p>
-     * @param  distance  offset
+     *
+     * @param distance offset
      */
     public DragSelectTouchListener withTopOffset(int distance)
     {
@@ -114,10 +116,11 @@ public class DragSelectTouchListener implements RecyclerView.OnItemTouchListener
 
     /**
      * defines an offset for the TouchRegion from the bottom
-     * useful, if RecyclerView is displayed underneath a semi transparent view at the bottom or similar
+     * useful, if RecyclerView is displayed underneath a semi transparent navigation view at the bottom or similar
      * ATTENTION: to move the region upwards, set a negative value!
      * <p>
-     * @param  distance  offset
+     *
+     * @param distance offset
      */
     public DragSelectTouchListener withBottomOffset(int distance)
     {
@@ -129,7 +132,8 @@ public class DragSelectTouchListener implements RecyclerView.OnItemTouchListener
      * enables scrolling, if the user touches the region above the RecyclerView
      * respectively above the TouchRegion at the top
      * <p>
-     * @param  enabled  if true, scrolling will continue even if the touch moves above the top touch region
+     *
+     * @param enabled if true, scrolling will continue even if the touch moves above the top touch region
      */
     public DragSelectTouchListener withScrollAboveTopRegion(boolean enabled)
     {
@@ -141,7 +145,8 @@ public class DragSelectTouchListener implements RecyclerView.OnItemTouchListener
      * enables scrolling, if the user touches the region below the RecyclerView
      * respectively below the TouchRegion at the bottom
      * <p>
-     * @param  enabled  if true, scrolling will continue even if the touch moves below the bottom touch region
+     *
+     * @param enabled if true, scrolling will continue even if the touch moves below the bottom touch region
      */
     public DragSelectTouchListener withScrollBelowTopRegion(boolean enabled)
     {
@@ -162,7 +167,8 @@ public class DragSelectTouchListener implements RecyclerView.OnItemTouchListener
     /**
      * start the drag selection
      * <p>
-     * @param  position  the index of the first selected item
+     *
+     * @param position the index of the first selected item
      */
     public void setStartSelectPosition(int position)
     {
@@ -230,15 +236,12 @@ public class DragSelectTouchListener implements RecyclerView.OnItemTouchListener
         }
     }
 
-
-
     @Override
     public void onTouchEvent(RecyclerView rv, MotionEvent e)
     {
         if (!mIsActive)
-        {
             return;
-        }
+
         int action = MotionEventCompat.getActionMasked(e);
         switch (action)
         {

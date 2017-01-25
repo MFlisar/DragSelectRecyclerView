@@ -58,6 +58,10 @@ It's a simple one class `TouchListener` that can be attached to any RecyclerView
 	mDragSelectTouchListener.setStartSelectPosition(position);
 	```
 	
+###TODO
+
+* support horizontal RecyclerViews... should be quite simple, but is not yet implemented
+	
 ###Credits
 
 This library is heavily inspired and based on https://github.com/weidongjian/AndroidDragSelect-SimulateGooglePhoto
