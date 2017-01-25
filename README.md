@@ -16,7 +16,9 @@ repositories {
 2. add the compile statement to your module's `build.gradle`:
 ```groovy
 dependencies {
-    compile 'com.github.MFlisar:DragSelectRecyclerView:1.0'
+    // currently this works only, I'm cleaning the code a little bit before making the first release
+    compile 'com.github.MFlisar:DragSelectRecyclerView:-SNAPSHOT'
+    // compile 'com.github.MFlisar:DragSelectRecyclerView:1.0'
 }
 ```
 
