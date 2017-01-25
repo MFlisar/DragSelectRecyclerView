@@ -1,4 +1,4 @@
-###DragSelectRecyclerView [![Release](https://jitpack.io/v/MFlisar/DragSelectRecyclerView.svg)](https://jitpack.io/#MFlisar/DragSelectRecyclerView)
+###DragSelectRecyclerView [![Release](https://jitpack.io/v/MFlisar/DragSelectRecyclerView.svg)](https://jitpack.io/#MFlisar/DragSelectRecyclerView)[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-DragSelectRecyclerView-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/5152)
 
 ### What is it / What does it do?
 It's a simple one class `TouchListener` that can be attached to any RecyclerView and handles multi selection in google photos style via long pressing on an item and moving the finger up/down to select more items (it even scrolls if you reach the edges of the `RecyclerView`)
