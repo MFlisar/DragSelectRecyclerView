@@ -170,7 +170,7 @@ public class DragSelectTouchListener implements RecyclerView.OnItemTouchListener
      *
      * @param position the index of the first selected item
      */
-    public void setStartSelectPosition(int position)
+    public void startDragSelection(int position)
     {
         setIsActive(true);
         mStart = position;

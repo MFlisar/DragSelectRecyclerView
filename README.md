@@ -18,7 +18,7 @@ It's a simple one class `TouchListener` that can be attached to any RecyclerView
 
 	```groovy
 	dependencies {
-	    compile 'com.github.MFlisar:DragSelectRecyclerView:0.1'
+	    compile 'com.github.MFlisar:DragSelectRecyclerView:0.2'
 	}
 	```
 
@@ -47,7 +47,7 @@ It's a simple one class `TouchListener` that can be attached to any RecyclerView
 2. attach it to the `RecyclerView`
 
 	```
-	recyclerView.addOnItemTouchListener(mDragSelectTouchListener);
+	recyclerView.startDragSelection(mDragSelectTouchListener);
 	```
 
 3. on item long press, inform the listener so that it can start doing it's magic
