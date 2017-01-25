@@ -18,9 +18,7 @@ TODO: Gif Demo
 
 	```groovy
 	dependencies {
-	    // currently this works only, I'm cleaning the code a little bit before making the first release
-	    compile 'com.github.MFlisar:DragSelectRecyclerView:-SNAPSHOT'
-	    // compile 'com.github.MFlisar:DragSelectRecyclerView:1.0'
+	    compile 'com.github.MFlisar:DragSelectRecyclerView:0.1'
 	}
 	```
 
