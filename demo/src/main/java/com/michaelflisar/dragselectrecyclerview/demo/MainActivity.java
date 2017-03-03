@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onItemClick(View view, int position)
             {
-                mAdapter.updateSelection(position, true);
+                mAdapter.select(position, true);
             }
 
             @Override
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity
             {
                 // if one item is long pressed, we start the drag selection like following:
                 // we just call this function and pass in the position of the first selected item
-                mAdapter.updateSelection(position, true);
+                mAdapter.select(position, true);
                 mDragSelectTouchListener.startDragSelection(position);
                 return true;
             }
@@ -60,8 +60,7 @@ public class MainActivity extends AppCompatActivity
                     {
                         // update your selection
                         // range is inclusive start/end positions
-                        for (int i = start; i <= end; i++)
-                            mAdapter.updateSelection(i, isSelected);
+                        mAdapter.selectRange(start, end, isSelected);
                     }
                 });
         rvData.addOnItemTouchListener(mDragSelectTouchListener);
