@@ -23,7 +23,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("Demo");
+        toolbar.setTitle("DragSelectRecyclerView");
+        toolbar.setSubtitle("Demo");
         setSupportActionBar(toolbar);
 
         // 1) Prepare the RecyclerView (init LayoutManager and set Adapter)
@@ -45,8 +46,9 @@ public class MainActivity extends AppCompatActivity
             {
                 // if one item is long pressed, we start the drag selection like following:
                 // we just call this function and pass in the position of the first selected item
-                mAdapter.select(position, true);
                 mDragSelectTouchListener.startDragSelection(position);
+                // of course we mark the position as selected as well
+                mAdapter.select(position, true);
                 return true;
             }
         });
@@ -59,7 +61,7 @@ public class MainActivity extends AppCompatActivity
                     public void onSelectChange(int start, int end, boolean isSelected)
                     {
                         // update your selection
-                        // range is inclusive start/end positions
+                        // range is inclusive start/end positions: [start, end]
                         mAdapter.selectRange(start, end, isSelected);
                     }
                 });
