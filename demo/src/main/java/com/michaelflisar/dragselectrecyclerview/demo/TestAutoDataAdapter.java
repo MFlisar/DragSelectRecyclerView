@@ -58,6 +58,15 @@ public class TestAutoDataAdapter extends RecyclerView.Adapter<TestAutoDataAdapte
     // Selection
     // ----------------------
 
+    public void toggleSelection(int pos)
+    {
+        if (mSelected.contains(pos))
+            mSelected.remove(pos);
+        else
+            mSelected.add(pos);
+        notifyItemChanged(pos);
+    }
+
     public void select(int pos, boolean selected)
     {
         if (selected)

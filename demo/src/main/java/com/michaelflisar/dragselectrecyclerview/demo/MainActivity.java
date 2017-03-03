@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onItemClick(View view, int position)
             {
-                mAdapter.select(position, true);
+                mAdapter.toggleSelection(position);
             }
 
             @Override
