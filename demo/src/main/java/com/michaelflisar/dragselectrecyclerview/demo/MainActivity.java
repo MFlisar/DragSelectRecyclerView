@@ -14,7 +14,7 @@ import com.michaelflisar.dragselectrecyclerview.DragSelectTouchListener;
 public class MainActivity extends AppCompatActivity
 {
     private DragSelectTouchListener mDragSelectTouchListener;
-    private  TestAutoDataAdapter mAdapter;
+    private TestAutoDataAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
