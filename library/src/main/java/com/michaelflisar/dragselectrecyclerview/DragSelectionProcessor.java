@@ -11,7 +11,7 @@ public class DragSelectionProcessor implements DragSelectTouchListener.OnAdvance
     /**
      *  Different existing selection modes
      */
-    public static enum Mode
+    public enum Mode
     {
         /**
          * simply selects each item you go by and unselects on move back
@@ -33,6 +33,7 @@ public class DragSelectionProcessor implements DragSelectTouchListener.OnAdvance
 
     private Mode mMode;
     private ISelectionHandler mSelectionHandler;
+    private ISelectionStartFinishedListener mStartFinishedListener;
     private HashSet<Integer> mOriginalSelection;
     private Boolean mFirstWasSelected;
 
@@ -40,6 +41,13 @@ public class DragSelectionProcessor implements DragSelectTouchListener.OnAdvance
     {
         mMode = mode;
         mSelectionHandler = selectionHandler;
+        mStartFinishedListener = null;
+    }
+
+    public DragSelectionProcessor withStartFinishedListener(ISelectionStartFinishedListener startFinishedListener)
+    {
+        mStartFinishedListener = startFinishedListener;
+        return this;
     }
 
     public void setMode(Mode mode)
@@ -124,17 +132,41 @@ public class DragSelectionProcessor implements DragSelectTouchListener.OnAdvance
 
     public interface ISelectionHandler
     {
-        /*
-         * Return the currently selected items => can be ignored for {@link Mode.Simple} and {@link Mode.FirstItemDependent}
+        /**
+         * Return the currently selected items => can be ignored for {@link Mode#Simple} and {@link Mode#FirstItemDependent}
          */
         HashSet<Integer> getSelection();
-        /*
-        * update your adapter and select/unselect the passed index
-        */
+
+        /**
+         * update your adapter and select select/unselect the passed index range
+         *
+         * @param index      the item index who's selection state changed
+         * @param isSelected      true, if the range should be selected, false otherwise
+         */
         void updateSelection(int index, boolean isSelected);
-        /*
-       * update your adapter and select select/unselect the passed index range
-       */
+
+        /**
+        * update your adapter and select select/unselect the passed index range
+        *
+        * @param start      the first item of the range who's selection state changed
+        * @param end         the last item of the range who's selection state changed
+        * @param isSelected      true, if the range should be selected, false otherwise
+        */
         void updateSelection(int start, int end, boolean isSelected);
+
+
+    }
+
+    public interface ISelectionStartFinishedListener
+    {
+        /**
+         * @param start      the item on which the drag selection was started at
+         */
+        void onSelectionStarted(int start);
+
+        /**
+         * @param end      the item on which the drag selection was finished at
+         */
+        void onSelectionFinished(int end);
     }
 }
