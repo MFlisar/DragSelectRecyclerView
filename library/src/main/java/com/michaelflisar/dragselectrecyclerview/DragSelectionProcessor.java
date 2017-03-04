@@ -1,6 +1,7 @@
 package com.michaelflisar.dragselectrecyclerview;
 
 import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Michael on 04.03.2017.
@@ -61,21 +62,35 @@ public class DragSelectionProcessor implements DragSelectTouchListener.OnAdvance
         switch (mMode)
         {
             case Simple:
+                {
                 mSelectionHandler.updateSelection(start, true);
                 break;
+            }
             case ToggleAndUndo:
-                mOriginalSelection = new HashSet<>(mSelectionHandler.getSelection());
+            {
+                mOriginalSelection = new HashSet<>();
+                Set<Integer> selected = mSelectionHandler.getSelection();
+                if (selected != null)
+                    mOriginalSelection.addAll(selected);
                 mSelectionHandler.updateSelection(start, !mOriginalSelection.contains(start));
                 break;
+            }
             case FirstItemDependent:
+            {
                 mFirstWasSelected = mSelectionHandler.getSelection().contains(start);
                 mSelectionHandler.updateSelection(start, !mFirstWasSelected);
                 break;
+            }
             case FirstItemDependentToggleAndUndo:
-                mOriginalSelection = new HashSet<>(mSelectionHandler.getSelection());
+            {
+                mOriginalSelection = new HashSet<>();
+                Set<Integer> selected = mSelectionHandler.getSelection();
+                if (selected != null)
+                    mOriginalSelection.addAll(selected);
                 mFirstWasSelected = mOriginalSelection.contains(start);
                 mSelectionHandler.updateSelection(start, !mOriginalSelection.contains(start));
                 break;
+            }
         }
     }
 
@@ -135,7 +150,7 @@ public class DragSelectionProcessor implements DragSelectTouchListener.OnAdvance
         /**
          * Return the currently selected items => can be ignored for {@link Mode#Simple} and {@link Mode#FirstItemDependent}
          */
-        HashSet<Integer> getSelection();
+        Set<Integer> getSelection();
 
         /**
          * update your adapter and select select/unselect the passed index range
