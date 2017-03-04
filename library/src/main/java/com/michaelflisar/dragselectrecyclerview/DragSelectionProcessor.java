@@ -36,82 +36,81 @@ public class DragSelectionProcessor implements DragSelectTouchListener.OnAdvance
     private ISelectionHandler mSelectionHandler;
     private ISelectionStartFinishedListener mStartFinishedListener;
     private HashSet<Integer> mOriginalSelection;
-    private Boolean mFirstWasSelected;
+    private boolean mFirstWasSelected;
 
-    public DragSelectionProcessor(Mode mode, ISelectionHandler selectionHandler)
+    /**
+     * @param selectionHandler the handler that takes care to handle the selection events
+     */
+    public DragSelectionProcessor(ISelectionHandler selectionHandler)
     {
-        mMode = mode;
+        mMode = Mode.Simple;
         mSelectionHandler = selectionHandler;
         mStartFinishedListener = null;
     }
 
+    /**
+     * @param mode the mode in which the selection events should be processed
+     * @return this
+     */
+    public DragSelectionProcessor withMode(Mode mode)
+    {
+        mMode = mode;
+        return this;
+    }
+    
+    /**
+     * @param startFinishedListener a listener that get's notified when the drag selection is started or finished
+     * @return this
+     */
     public DragSelectionProcessor withStartFinishedListener(ISelectionStartFinishedListener startFinishedListener)
     {
         mStartFinishedListener = startFinishedListener;
         return this;
     }
 
-    public void setMode(Mode mode)
-    {
-        mMode = mode;
-    }
-
     @Override
     public void onSelectionStarted(int start)
     {
+        mOriginalSelection = new HashSet<>();
+        Set<Integer> selected = mSelectionHandler.getSelection();
+        if (selected != null)
+            mOriginalSelection.addAll(selected);
+        mFirstWasSelected = mOriginalSelection.contains(start);
+
         switch (mMode)
         {
             case Simple:
-                {
-                mSelectionHandler.updateSelection(start, true);
+            {
+                mSelectionHandler.updateSelection(start, start, true);
                 break;
             }
             case ToggleAndUndo:
             {
-                mOriginalSelection = new HashSet<>();
-                Set<Integer> selected = mSelectionHandler.getSelection();
-                if (selected != null)
-                    mOriginalSelection.addAll(selected);
-                mSelectionHandler.updateSelection(start, !mOriginalSelection.contains(start));
+                mSelectionHandler.updateSelection(start, start, !mOriginalSelection.contains(start));
                 break;
             }
             case FirstItemDependent:
             {
-                mFirstWasSelected = mSelectionHandler.getSelection().contains(start);
-                mSelectionHandler.updateSelection(start, !mFirstWasSelected);
+                mSelectionHandler.updateSelection(start, start, !mFirstWasSelected);
                 break;
             }
             case FirstItemDependentToggleAndUndo:
             {
-                mOriginalSelection = new HashSet<>();
-                Set<Integer> selected = mSelectionHandler.getSelection();
-                if (selected != null)
-                    mOriginalSelection.addAll(selected);
-                mFirstWasSelected = mOriginalSelection.contains(start);
-                mSelectionHandler.updateSelection(start, !mOriginalSelection.contains(start));
+                mSelectionHandler.updateSelection(start, start, !mFirstWasSelected);
                 break;
             }
         }
+        if (mStartFinishedListener != null)
+            mStartFinishedListener.onSelectionStarted(start, mFirstWasSelected);
     }
 
     @Override
     public void onSelectionFinished(int end)
     {
-        switch (mMode)
-        {
-            case Simple:
-                break;
-            case ToggleAndUndo:
-                mOriginalSelection = null;
-                break;
-            case FirstItemDependent:
-                mFirstWasSelected = null;
-                break;
-            case FirstItemDependentToggleAndUndo:
-                mOriginalSelection = null;
-                mFirstWasSelected = null;
-                break;
-        }
+        mOriginalSelection = null;
+
+        if (mStartFinishedListener != null)
+            mStartFinishedListener.onSelectionFinished(end);
     }
 
     @Override
@@ -127,19 +126,19 @@ public class DragSelectionProcessor implements DragSelectTouchListener.OnAdvance
             case ToggleAndUndo:
             {
                 for (int i = start; i <= end; i++)
-                    mSelectionHandler.updateSelection(i, isSelected ? !mOriginalSelection.contains(i) :  mOriginalSelection.contains(i));
+                    mSelectionHandler.updateSelection(i, i, isSelected ? !mOriginalSelection.contains(i) :  mOriginalSelection.contains(i));
                 break;
             }
             case FirstItemDependent:
             {
                 for (int i = start; i <= end; i++)
-                    mSelectionHandler.updateSelection(i, isSelected ? !mFirstWasSelected :  mFirstWasSelected);
+                    mSelectionHandler.updateSelection(i, i, isSelected ? !mFirstWasSelected :  mFirstWasSelected);
                 break;
             }
             case FirstItemDependentToggleAndUndo:
             {
                 for (int i = start; i <= end; i++)
-                    mSelectionHandler.updateSelection(i, isSelected ? !mFirstWasSelected :  mOriginalSelection.contains(i));
+                    mSelectionHandler.updateSelection(i, i, isSelected ? !mFirstWasSelected :  mOriginalSelection.contains(i));
                 break;
             }
         }
@@ -153,31 +152,22 @@ public class DragSelectionProcessor implements DragSelectTouchListener.OnAdvance
         Set<Integer> getSelection();
 
         /**
-         * update your adapter and select select/unselect the passed index range
-         *
-         * @param index      the item index who's selection state changed
-         * @param isSelected      true, if the range should be selected, false otherwise
-         */
-        void updateSelection(int index, boolean isSelected);
-
-        /**
-        * update your adapter and select select/unselect the passed index range
+        * update your adapter and select select/unselect the passed index range, you be get a single for all modes but {@link Mode#Simple}
         *
         * @param start      the first item of the range who's selection state changed
         * @param end         the last item of the range who's selection state changed
         * @param isSelected      true, if the range should be selected, false otherwise
         */
         void updateSelection(int start, int end, boolean isSelected);
-
-
     }
 
     public interface ISelectionStartFinishedListener
     {
         /**
          * @param start      the item on which the drag selection was started at
+         * @param originalSelectionState the original selection state
          */
-        void onSelectionStarted(int start);
+        void onSelectionStarted(int start, boolean originalSelectionState);
 
         /**
          * @param end      the item on which the drag selection was finished at

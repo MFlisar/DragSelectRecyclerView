@@ -61,22 +61,18 @@ public class MainActivity extends AppCompatActivity
         });
 
         // 2) Add the DragSelectListener
-        mDragSelectionProcessor = new DragSelectionProcessor(mMode, new DragSelectionProcessor.ISelectionHandler() {
+        mDragSelectionProcessor = new DragSelectionProcessor(new DragSelectionProcessor.ISelectionHandler() {
             @Override
             public HashSet<Integer> getSelection() {
                 return mAdapter.getSelection();
             }
 
             @Override
-            public void updateSelection(int index, boolean isSelected) {
-                mAdapter.select(index, isSelected);
-            }
-
-            @Override
             public void updateSelection(int start, int end, boolean isSelected) {
                 mAdapter.selectRange(start, end, isSelected);
             }
-        });
+        })
+                .withMode(mMode);
         mDragSelectTouchListener = new DragSelectTouchListener()
                 .withSelectListener(mDragSelectionProcessor);
         updateSelectionListener();
@@ -89,7 +85,7 @@ public class MainActivity extends AppCompatActivity
 
     private void updateSelectionListener()
     {
-        mDragSelectionProcessor.setMode(mMode);
+        mDragSelectionProcessor.withMode(mMode);
         mToolbar.setSubtitle("Mode: " + mMode.name());
     }
 
