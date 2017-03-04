@@ -53,7 +53,8 @@ public class MainActivity extends AppCompatActivity
             {
                 // if one item is long pressed, we start the drag selection like following:
                 // we just call this function and pass in the position of the first selected item
-                // the selection processor does take care to uzpdate the positions selection mode correctly!!!
+                // the selection processor does take care to update the positions selection mode correctly
+                // and will correctly transform the touch events so that they can be directly applied to your adapter!!!
                 mDragSelectTouchListener.startDragSelection(position);
                 return true;
             }
