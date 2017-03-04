@@ -68,7 +68,12 @@ public class MainActivity extends AppCompatActivity
             }
 
             @Override
-            public void updateSelection(int start, int end, boolean isSelected) {
+            public boolean isSelected(int index) {
+                return mAdapter.getSelection().contains(index);
+            }
+
+            @Override
+            public void updateSelection(int start, int end, boolean isSelected, boolean calledFromOnStart) {
                 mAdapter.selectRange(start, end, isSelected);
             }
         })
