@@ -15,12 +15,16 @@
                 android:title="Simple"/>
 
             <item
-                android:id="@+id/mode_advanced_toggling"
-                android:title="Advanced"/>
+                android:id="@+id/mode_toggle"
+                android:title="Toggle and undo"/>
 
             <item
-                android:id="@+id/mode_advanced_first_item_dependant"
-                android:title="Advanced first item dependant"/>
+                android:id="@+id/mode_first_item_dependant"
+                android:title="First item dependent"/>
+
+            <item
+                android:id="@+id/mode_first_item_dependant_toggle"
+                android:title="First item dependent toggle and undo"/>
 
         </menu>
     </item>
