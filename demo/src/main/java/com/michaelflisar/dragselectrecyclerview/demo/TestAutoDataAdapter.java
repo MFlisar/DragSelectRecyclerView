@@ -76,16 +76,16 @@ public class TestAutoDataAdapter extends RecyclerView.Adapter<TestAutoDataAdapte
         notifyItemChanged(pos);
     }
 
-    public void selectRange(int from, int to, boolean selected)
+    public void selectRange(int start, int end, boolean selected)
     {
-        for (int i = from; i <= to; i++)
+        for (int i = start; i <= end; i++)
         {
             if (selected)
                 mSelected.add(i);
             else
                 mSelected.remove(i);
         }
-        notifyItemRangeChanged(from, to - from + 1);
+        notifyItemRangeChanged(start, end - start + 1);
     }
 
     public void deselectAll()
@@ -95,9 +95,21 @@ public class TestAutoDataAdapter extends RecyclerView.Adapter<TestAutoDataAdapte
         notifyDataSetChanged();
     }
 
+    public void selectAll()
+    {
+        for (int i = 0; i < mDataSize; i++)
+            mSelected.add(i);
+        notifyDataSetChanged();
+    }
+
     public int getCountSelected()
     {
         return mSelected.size();
+    }
+
+    public HashSet<Integer> getSelection()
+    {
+        return mSelected;
     }
 
     // ----------------------

@@ -177,6 +177,8 @@ public class DragSelectTouchListener implements RecyclerView.OnItemTouchListener
         mEnd = position;
         mLastStart = position;
         mLastEnd = position;
+        if (mSelectListener != null && mSelectListener instanceof OnAdvancedDragSelectListener)
+            ((OnAdvancedDragSelectListener)mSelectListener).onSelectionStarted(position);
     }
 
     // -----------------------
@@ -387,6 +389,8 @@ public class DragSelectTouchListener implements RecyclerView.OnItemTouchListener
     private void reset()
     {
         setIsActive(false);
+        if (mSelectListener != null && mSelectListener instanceof OnAdvancedDragSelectListener)
+            ((OnAdvancedDragSelectListener)mSelectListener).onSelectionFinished(mEnd);
         mStart = RecyclerView.NO_POSITION;
         mEnd = RecyclerView.NO_POSITION;
         mLastStart = RecyclerView.NO_POSITION;
@@ -422,14 +426,27 @@ public class DragSelectTouchListener implements RecyclerView.OnItemTouchListener
     }
 
     // -----------------------
-    // Interfaces
+    // Interfaces and simple default implementations
     // -----------------------
+
+    public interface OnAdvancedDragSelectListener extends OnDragSelectListener
+    {
+        /**
+         * @param start      the item on which the drag selection was started at
+         */
+        void onSelectionStarted(int start);
+
+        /**
+         * @param end      the item on which the drag selection was finished at
+         */
+        void onSelectionFinished(int end);
+    }
 
     public interface OnDragSelectListener
     {
         /**
-         * @param start      the newly (un)selected range mStart
-         * @param end        the newly (un)selected range mEnd
+         * @param start      the newly (un)selected range start
+         * @param end        the newly (un)selected range end
          * @param isSelected true, it range got selected, false if not
          */
         void onSelectChange(int start, int end, boolean isSelected);
