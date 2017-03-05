@@ -59,7 +59,40 @@ mDragSelectTouchListener.startDragSelection(position);
 You have 3 options:
 
 * use a simple `DragSelectTouchListener.OnDragSelectListener` => you get notified over which items the user dragged or dragged back
+
+	```groovy
+	  new DragSelectTouchListener.OnDragSelectListener() {
+		@Override
+		public void onSelectChange(int start, int end, boolean isSelected) {
+			// update your selection
+			// range is inclusive start/end positions
+		}
+	  }
+	```
+
 * use a `DragSelectTouchListener.OnAdvancedDragSelectListener` => this is an extended version of the `DragSelectTouchListener.OnDragSelectListener` which will notify you about the start and end of the drag selection as well
+
+	```groovy
+	dragSelectTouchListener = new DragSelectTouchListener.OnAdvancedDragSelectListener()
+	{
+		@Override
+		public void onSelectChange(int start, int end, boolean isSelected) {
+			// update your selection
+			// range is inclusive start/end positions
+		}
+
+		@Override
+		public void onSelectionStarted(int start) {
+			// drag selection was started at index start
+		}
+
+		@Override
+		public void onSelectionFinished(int end) {
+			// drag selection was finished at index start
+		}
+	};
+	```
+	
 * **Preferred option:** use the `DragSelectionProcessor`, it implements the above mentioned interface and can be set up with 4 modes:
   * `Simple`: simply selects each item you go by and unselects on move back
   * `ToggleAndUndo`: toggles each items original state, reverts to the original state on move back
@@ -67,16 +100,31 @@ You have 3 options:
   * `FirstItemDependentToggleAndUndo`: toggles the item and applies the same state to each item you go by and reverts to the original state on move back
   The `DragSelectionProcessor` will take care to transform each event to the correct select/deselect event that must be handled by you afterwards. Therefore you must provide a `ISelectionHandler` in it's constructor. Just implement it's 3 simple functions and you're done. A demo can be found here: [MainActivity.java](https://github.com/MFlisar/DragSelectRecyclerView/blob/master/demo/src/main/java/com/michaelflisar/dragselectrecyclerview/demo/MainActivity.java)
 
-```groovy
-new DragSelectTouchListener.OnDragSelectListener() {
-	@Override
-	public void onSelectChange(int start, int end, boolean isSelected) {
-		// update your selection
-		// range is inclusive start/end positions
-	}
-}
-```
+	```groovy
+	dragSelectTouchListener = new DragSelectionProcessor(new DragSelectionProcessor.ISelectionHandler() {
+		@Override
+		public Set<Integer> getSelection() {
+			// return a set of all currently selected indizes
+			return selection;
+		}
 
+		@Override
+		public boolean isSelected(int index) {
+			// return the current selection state of the index
+			return selected;
+		}
+
+		@Override
+		public void updateSelection(int start, int end, boolean isSelected, boolean calledFromOnStart) {
+			// update your selection
+			// range is inclusive start/end positions
+			// and the processor has already converted all events according to it'smode
+		}
+	})
+		// pass in one of the 4 modes, simple mode is selected by default otherwise
+		.withMode(DragSelectionProcessor.Mode.FirstItemDependentToggleAndUndo);
+	```
+	
 ###TODO
 
 * support horizontal RecyclerViews... should be quite simple, but is not yet implemented
