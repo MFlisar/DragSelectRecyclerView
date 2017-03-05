@@ -98,7 +98,7 @@ You have 3 options:
   * `ToggleAndUndo`: toggles each items original state, reverts to the original state on move back
   * `FirstItemDependent`: toggles the first item and applies the same state to each item you go by and applies inverted state on move back
   * `FirstItemDependentToggleAndUndo`: toggles the item and applies the same state to each item you go by and reverts to the original state on move back
-  The `DragSelectionProcessor` will take care to transform each event to the correct select/deselect event that must be handled by you afterwards. Therefore you must provide a `ISelectionHandler` in it's constructor. Just implement it's 3 simple functions and you're done. A demo can be found here: [MainActivity.java](https://github.com/MFlisar/DragSelectRecyclerView/blob/master/demo/src/main/java/com/michaelflisar/dragselectrecyclerview/demo/MainActivity.java)
+  The `DragSelectionProcessor` will take care to transform each event to the correct select/deselect event that must be handled by you afterwards. Therefore you must provide a `ISelectionHandler` in it's constructor. Just implement it's 3 simple functions and you're done.
 
 	```groovy
 	onDragSelectionListener = new DragSelectionProcessor(new DragSelectionProcessor.ISelectionHandler() {
@@ -124,6 +124,8 @@ You have 3 options:
 		// pass in one of the 4 modes, simple mode is selected by default otherwise
 		.withMode(DragSelectionProcessor.Mode.FirstItemDependentToggleAndUndo);
 	```
+	
+A demo can be found here: [MainActivity.java](https://github.com/MFlisar/DragSelectRecyclerView/blob/master/demo/src/main/java/com/michaelflisar/dragselectrecyclerview/demo/MainActivity.java)
 	
 ###TODO
 
