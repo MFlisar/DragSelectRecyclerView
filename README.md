@@ -25,7 +25,7 @@ dependencies {
 
 ### Usage - General
 
-1. Create the a touch listener like following
+1) Create the a touch listener like following
 
 ```groovy
 mDragSelectTouchListener = new DragSelectTouchListener()
@@ -40,13 +40,13 @@ mDragSelectTouchListener = new DragSelectTouchListener()
 	.withDebug(enabled);                // default: false;
 ```
 
-2. attach it to the `RecyclerView`
+2) attach it to the `RecyclerView`
 
 ```groovy
 recyclerView.addOnItemTouchListener(mDragSelectTouchListener);
 ```
 
-3. on item long press, inform the listener so that it can start doing it's magic
+3) on item long press, inform the listener so that it can start doing it's magic
 
 ```groovy
 // if one item is long pressed, we start the drag selection like following:
