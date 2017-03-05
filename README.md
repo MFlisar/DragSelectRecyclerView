@@ -61,7 +61,7 @@ You have 3 options:
 * use a simple `DragSelectTouchListener.OnDragSelectListener` => you get notified over which items the user dragged or dragged back
 
 	```groovy
-	  new DragSelectTouchListener.OnDragSelectListener() {
+	  onDragSelectionListener = new DragSelectTouchListener.OnDragSelectListener() {
 		@Override
 		public void onSelectChange(int start, int end, boolean isSelected) {
 			// update your selection
@@ -73,7 +73,7 @@ You have 3 options:
 * use a `DragSelectTouchListener.OnAdvancedDragSelectListener` => this is an extended version of the `DragSelectTouchListener.OnDragSelectListener` which will notify you about the start and end of the drag selection as well
 
 	```groovy
-	dragSelectTouchListener = new DragSelectTouchListener.OnAdvancedDragSelectListener()
+	onDragSelectionListener = new DragSelectTouchListener.OnAdvancedDragSelectListener()
 	{
 		@Override
 		public void onSelectChange(int start, int end, boolean isSelected) {
@@ -101,7 +101,7 @@ You have 3 options:
   The `DragSelectionProcessor` will take care to transform each event to the correct select/deselect event that must be handled by you afterwards. Therefore you must provide a `ISelectionHandler` in it's constructor. Just implement it's 3 simple functions and you're done. A demo can be found here: [MainActivity.java](https://github.com/MFlisar/DragSelectRecyclerView/blob/master/demo/src/main/java/com/michaelflisar/dragselectrecyclerview/demo/MainActivity.java)
 
 	```groovy
-	dragSelectTouchListener = new DragSelectionProcessor(new DragSelectionProcessor.ISelectionHandler() {
+	onDragSelectionListener = new DragSelectionProcessor(new DragSelectionProcessor.ISelectionHandler() {
 		@Override
 		public Set<Integer> getSelection() {
 			// return a set of all currently selected indizes
