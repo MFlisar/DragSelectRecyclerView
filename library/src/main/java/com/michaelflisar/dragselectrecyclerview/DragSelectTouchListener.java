@@ -1,15 +1,12 @@
 package com.michaelflisar.dragselectrecyclerview;
 
-import android.content.Context;
 import android.content.res.Resources;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.ViewCompat;
-import android.support.v4.widget.ScrollerCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.LinearInterpolator;
 
 /**
  * Created by flisar on 24.01.2017.
@@ -28,13 +25,13 @@ public class DragSelectTouchListener implements RecyclerView.OnItemTouchListener
 
     private OnDragSelectListener mSelectListener;
     private RecyclerView mRecyclerView;
-    private ScrollerCompat mScroller;
+    private boolean mIsScrolling;
     private Runnable mScrollRunnable = new Runnable()
     {
         @Override
         public void run()
         {
-            if (mScroller != null && mScroller.computeScrollOffset())
+            if (mIsScrolling)
             {
                 scrollBy(mScrollDistance);
                 ViewCompat.postOnAnimation(mRecyclerView, mScrollRunnable);
@@ -214,27 +211,20 @@ public class DragSelectTouchListener implements RecyclerView.OnItemTouchListener
         if (mRecyclerView == null)
             return;
 
-        initScroller(mRecyclerView.getContext());
-        if (mScroller.isFinished())
+        if (!mIsScrolling)
         {
             mRecyclerView.removeCallbacks(mScrollRunnable);
-            mScroller.startScroll(0, mScroller.getCurrY(), 0, 5000, 100000);
+            mIsScrolling = true;
             ViewCompat.postOnAnimation(mRecyclerView, mScrollRunnable);
         }
     }
 
-    private void initScroller(Context context)
-    {
-        if (mScroller == null)
-            mScroller = ScrollerCompat.create(context, new LinearInterpolator());
-    }
-
     public void stopAutoScroll()
     {
-        if (mScroller != null && !mScroller.isFinished())
+        if (mIsScrolling)
         {
             mRecyclerView.removeCallbacks(mScrollRunnable);
-            mScroller.abortAnimation();
+            mIsScrolling = false;
         }
     }
 
