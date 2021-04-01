@@ -16,7 +16,6 @@ android {
     else
     {
         compileSdkVersion 25
-        buildToolsVersion "25.0.2"
         defaultConfig {
             minSdkVersion 16
             targetSdkVersion 25
@@ -37,7 +36,7 @@ android {
 }
 
 dependencies {
-    compile "com.android.support:support-core-ui:${versions.supportLib}"
+    implementation "com.android.support:support-core-ui:${versions.supportLib}"
 //    compile "com.android.support:appcompat-v7:${versions.supportLib}"
-    compile "com.android.support:recyclerview-v7:${versions.supportLib}"
+    implementation "com.android.support:recyclerview-v7:${versions.supportLib}"
 }
